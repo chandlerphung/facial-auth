@@ -9,12 +9,15 @@ def detect_face(frame):
 
     if a:
 
-        x1=a[0].x
-        y1=a[0].y
-        x2=x1+a[0].w
-        y2=y1+a[0].h
+        for faces in a:
+
+            x1=faces.x
+            y1=faces.y
+            x2=x1+faces.w
+            y2=y1+faces.h
+            
+            new_frame = cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
         
-        new_frame = cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
         return new_frame
 
     else:
