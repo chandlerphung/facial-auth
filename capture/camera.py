@@ -1,7 +1,7 @@
 import numpy as np
 import cv2 as cv
 from detection.detect import detect_face
-from recognition.identification import verification
+from recognition.identification import verification, find
 
 def start_camera():
 
@@ -19,7 +19,9 @@ def start_camera():
             break
 
         frame=detect_face(frame)
-        verification(frame)   
+        verification(frame)
+        find(frame)
+        print(f"FRAMES: {cv.CAP_PROP_FPS}")
 
         # Our operations on the frame come here
         # Display the resulting frame
