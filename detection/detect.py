@@ -1,24 +1,27 @@
-from deepface.models.face_detection.YuNet import YuNetClient
 import cv2
+from deepface.models.face_detection.YuNet import YuNetClient
 
-model=YuNetClient()
+# Initialize face detector model
+model = YuNetClient()
 
 def detect_face(frame):
+    """
+    Detect faces in the given frame and draw rectangles around them.
 
-    a=model.detect_faces(frame)
+    Args:
+        frame (np.array): Image frame from camera.
 
-    if a:
+    Returns:
+        np.array: Frame with rectangles drawn on detected faces.
+    """
+    faces = model.detect_faces(frame)
 
-        for faces in a:
+    if faces:
+        for face in faces:
+            x1 = face.x
+            y1 = face.y
+            x2 = x1 + face.w
+            y2 = y1 + face.h
+            frame = cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-            x1=faces.x
-            y1=faces.y
-            x2=x1+faces.w
-            y2=y1+faces.h
-            
-            new_frame = cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
-        
-        return new_frame
-
-    else:
-        return frame
+    return frame
